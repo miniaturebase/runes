@@ -1,0 +1,32 @@
+#!/usr/bin/php
+<?php
+
+ini_set('display_errors', 1);
+ini_set('error_reporting', E_ALL);
+
+use UTFH8\Character;
+use UTFH8\Script;
+
+require_once realpath(__DIR__.'/../vendor/autoload.php');
+
+function uniord (string $character) {
+    $character = mb_convert_encoding($character, 'UCS-2LE', 'UTF-8');
+    
+    return ord(substr($character, 1, 1)) * 256 + ord(substr($character, 0, 1));
+}
+
+function script(string $subject): Script {
+    return new Script($subject);
+}
+
+function char(string $character): Character {
+    return new Character($character);
+}
+
+// $script = script('helloಈ');
+// dump($script);
+
+$char = char('a');
+// dump($char);
+dump($char->toArray());
+
