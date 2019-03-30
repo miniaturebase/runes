@@ -1,0 +1,27 @@
+{
+    "name": "jordanbrauer/utfh8",
+    "authors": [
+        {
+            "name": "Jordan Brauer",
+            "email": "18744334+jordanbrauer@users.noreply.github.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "UTFH8\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.1",
+        "ext-intl": "3.0.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^3.4",
+        "phpunit/phpunit": "^7.5",
+        "friendsofphp/php-cs-fixer": "^2.14"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --configuration=./phpunit.xml --testsuite=all --color=always",
+        "style": "vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v"
+    }
+}
