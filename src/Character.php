@@ -250,6 +250,11 @@ final class Character
         return (string) $this;
     }
 
+    public function toJson(): string
+    {
+        return json_encode($this->toArray());
+    }
+
     private function checkLength(): self
     {
         $length = \mb_strlen($this->glyph, $this->encoding);
