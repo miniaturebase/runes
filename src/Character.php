@@ -40,10 +40,6 @@ final class Character
 
     const BINARY_FORMAT = 'H*';
 
-    const CODEPOINT_ASCII = 'U+%04d';
-    
-    const CODEPOINT_UNICODE = 'U+%04X';
-
     const CHARACTER_CATEGORIES = [
         IntlChar::CHAR_CATEGORY_UNASSIGNED             => '?',
         IntlChar::CHAR_CATEGORY_GENERAL_OTHER_TYPES    => '??',
@@ -78,6 +74,10 @@ final class Character
         IntlChar::CHAR_CATEGORY_FINAL_PUNCTUATION      => 'Pf',
         IntlChar::CHAR_CATEGORY_CHAR_CATEGORY_COUNT    => '???',
     ];
+
+    const CODEPOINT_ASCII = 'U+%04d';
+
+    const CODEPOINT_UNICODE = 'U+%04X';
 
     const ENCODING_ASCII = 'ASCII';
 
@@ -234,7 +234,7 @@ final class Character
         } else {
             $glyph = \mb_convert_encoding($this->glyph, $encoding, self::ENCODING_UTF8);
             $size = \strlen($glyph); # NOTE: `mb_strlen($glyph, self::ENCODING_UTF32)` does not work here for all chars
-    
+
             for ($i = 0; $i < $size; ++$i) {
                 $bytes .= \bin2hex(\mb_substr($glyph, $i, 1, self::ENCODING_UTF32));
             }
