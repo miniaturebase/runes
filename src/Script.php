@@ -180,6 +180,11 @@ final class Script
         return $this;
     }
 
+    private function dupePrevious()
+    {
+        $this->inspected[] = $this->previousInspection();
+    }
+
     /**
      * Process the subject string by inspecting each character individually.
      *
@@ -280,6 +285,11 @@ final class Script
         return ('Common' != $script) ? "\\p{Common}|{$pattern}" : $pattern;
     }
 
+    private function previousInspection()
+    {
+        return $this->inspected[abs(count($this->inspected) - 1)];
+    }
+
     /**
      * Given a character and a script, this method will check if the character
      * belongs to the script, and if it does, it will set the detected script
@@ -292,6 +302,10 @@ final class Script
     private function processCharWithScript(string $char, string $script)
     {
         if ($this->isCharPrevious($char)) {
+            if ($this->previousInspection()->script === $script) {
+                $this->dupePrevious();
+            }
+
             return $this;
         }
 
