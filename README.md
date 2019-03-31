@@ -8,23 +8,28 @@ $character = new Character('a');
 dump($character->toJson());
 ```
 
-Would output the following data about the input character (`a`, in this case).
+Would output the following data about the input character (`🍗`, in this case).
 
 ```json
 {
-  "bidirectionalClass": "L",
-  "blockCode": 1,
-  "category": "Ll",
+  "bidirectionalClass": "ON",
+  "binary": "11110000100111111000110110010111",
+  "blockCode": 205,
+  "bytes": 2,
+  "category": "So",
+  "codepoint": "U+1F357",
   "combiningClass": 0,
-  "encoding": "UTF-8",
-  "glyph": "a",
+  "decimal": 4036988311,
+  "encoding": "UTF-16",
+  "glyph": "🍗",
+  "hex": "f09f8d97",
   "isMirrored": false,
-  "name": "LATIN SMALL LETTER A",
-  "script": "Latin",
-  "version": "1.1.0.0",
-  "codepoint": "\\u61",
-  "binary": "1100001",
-  "hex": "61",
-  "decimal": 97
+  "name": "POULTRY LEG",
+  "script": "Common",
+  "utf8": "0xF0 0x9F 0x8D 0x97",
+  "utf16": "0xD83C 0xDF57",
+  "utf32": "0x0001F357",
+  "version": "6.0.0.0"
 }
+
 ```
