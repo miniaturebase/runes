@@ -38,6 +38,12 @@ final class Character
         IntlChar::CHAR_DIRECTION_CHAR_DIRECTION_COUNT       => '?',
     ];
 
+    const BINARY_FORMAT = 'H*';
+
+    const CODEPOINT_ASCII = 'U+%04d';
+    
+    const CODEPOINT_UNICODE = 'U+%04X';
+
     const CHARACTER_CATEGORIES = [
         IntlChar::CHAR_CATEGORY_UNASSIGNED             => '?',
         IntlChar::CHAR_CATEGORY_GENERAL_OTHER_TYPES    => '??',
@@ -84,6 +90,8 @@ final class Character
     private $bidirectionalClass;
 
     private $blockCode;
+
+    private $bytes;
 
     private $category;
 
@@ -143,80 +151,31 @@ final class Character
 
     public function toArray(): array
     {
-        return array_merge(\get_object_vars($this), [
-            'codepoint' => $this->toCodepoint(),
+        $data = array_merge(\get_object_vars($this), [
             'binary'    => $this->toBinary(),
-            'hex'       => $this->toHex(),
+            'codepoint' => $this->toCodepoint(),
             'decimal'   => $this->toDecimal(),
+            'hex'       => $this->toHex(),
+            'utf8'      => $this->toUtf8(),
+            'utf16'     => $this->toUtf16(),
+            'utf32'     => $this->toUtf32(),
         ]);
+
+        ksort($data);
+
+        return $data;
     }
 
     public function toBinary(): string
     {
-        return base_convert(unpack('H*', $this->glyph)[1], 16, 2);
+        return base_convert(unpack(self::BINARY_FORMAT, $this->glyph)[1], 16, 2);
     }
 
-    public function toCodepoint($type = 'string')
+    public function toCodepoint()
     {
-        // FIXME: THIS SHIT IS BROKEN
-        if ($this->isAscii()) {
-            $unicode = "\\u{$this->toHex()}";
-
-            if ('int' == $type) {
-                return $this->toHexDec();
-            }
-
-            return $unicode;
-        }
-
-        $character = $this->glyph;
-        $unicode = $values = [];
-        $lookingFor = 1;
-
-        for ($i = 0; $i < strlen($character); $i++) {
-            $byte = ord($character[$i]);
-
-            if ($byte < ord('A')) {
-                if ($byte >= ord('0') && $byte <= ord('9')) { // exclude 0-9
-                    $unicode[] = chr($byte); // number
-                } else {
-                    $unicode[] = '%'.dechex($byte);
-                }
-            } else {
-                if ($byte < 128) {
-                    $unicode[] = $character[$i];
-                } else {
-                    if (0 == count($values)) {
-                        $lookingFor = ($byte < 224) ? 2 : 3;
-                    }
-
-                    $values[] = $byte;
-
-                    if (count($values) == $lookingFor) {
-                        $number = (3 == $lookingFor)
-                            ? (($values[0] % 16) * 4096) + (($values[1] % 64) * 64) + ($values[2] % 64)
-                            : (($values[0] % 32) * 64) + ($values[1] % 64);
-                        $number = dechex($number);
-                        $unicode[] = (3 == strlen($number)) ? "\\u0".$number : "\\u".$number;
-                        $values = [];
-                        $lookingFor = 1;
-                    }
-                }
-            }
-        }
-
-        switch ($type) {
-            case 'string':
-                return implode("", $unicode);
-
-                break;
-            case 'int':
-                return $this->toHexDec();
-
-                break;
-            default:
-                throw new LogicException('Unknown codepoint type '.$type);
-        }
+        return sprintf(...(self::ENCODING_ASCII === $this->encoding)
+            ? [self::CODEPOINT_ASCII, $this->toHex()]
+            : [self::CODEPOINT_UNICODE, IntlChar::ord($this->glyph)]);
     }
 
     public function toDecimal(): int
@@ -229,20 +188,9 @@ final class Character
         return bin2hex($this->glyph);
     }
 
-    // public function toHtmlEntity()
-    // {
-    // }
-
-    public function toHexDec(int $bits = 32): int
+    public function toJson(): string
     {
-        $unicode = $this->toCodepoint('string');
-        $unicode = is_array($unicode) ? implode("", $unicode) : $unicode;
-        $str = str_replace('\\u', '', $unicode);
-        $str = \str_pad($str, (abs($bits / 4) - strlen($str) + 2), '0', STR_PAD_LEFT);
-        $hex = '0x'.$str;
-        // dump($hex);
-
-        return hexdec($hex);
+        return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
     }
 
     public function toString(): string
@@ -250,21 +198,53 @@ final class Character
         return (string) $this;
     }
 
-    public function toJson(): string
+    public function toUtf16($toInt = false)
     {
-        return json_encode($this->toArray());
+        return $this->convertUtfEncoding(self::ENCODING_UTF16, $toInt);
     }
 
-    private function checkLength(): self
+    public function toUtf32($toInt = false)
     {
-        $length = \mb_strlen($this->glyph, $this->encoding);
+        return $this->convertUtfEncoding(self::ENCODING_UTF32, $toInt);
+    }
 
-        // IDEA: make exceptions for combined codes, like emoji?
-        if (1 <> $length) {
-            throw new LogicException("Characters must only have a length of 1, received {$length}.");
+    public function toUtf8($toInt = false)
+    {
+        return $this->convertUtfEncoding(self::ENCODING_UTF8, $toInt);
+    }
+
+    private function checkSize(): self
+    {
+        $maxBytes = (self::ENCODING_UTF16 == $this->encoding) ? 4 : 1;
+
+        if ($this->bytes <= 0 || $this->bytes > $maxBytes) {
+            throw new LogicException("Characters must only have a maximum byte size of {$maxBytes}, received {$this->bytes}.");
         }
 
         return $this;
+    }
+
+    private function convertUtfEncoding(string $encoding, bool $toInt = true)
+    {
+        $bytes = '';
+        $split = ((int) \trim(\substr($encoding, -2, 2), '-')) / 4;
+
+        if ($this->isAscii()) {
+            $bytes .= \sprintf("%0{$split}s", $this->toHex());
+        } else {
+            $glyph = \mb_convert_encoding($this->glyph, $encoding, self::ENCODING_UTF8);
+            $size = \strlen($glyph); # NOTE: `mb_strlen($glyph, self::ENCODING_UTF32)` does not work here for all chars
+    
+            for ($i = 0; $i < $size; ++$i) {
+                $bytes .= \bin2hex(\mb_substr($glyph, $i, 1, self::ENCODING_UTF32));
+            }
+        }
+
+        return \implode(' ', \array_map(function ($part) use ($toInt) {
+            $hex = '0x'.\strtoupper($part);
+
+            return ($toInt) ? (string) \hexdec($hex) : $hex;
+        }, \str_split($bytes, $split)));
     }
 
     private function detectBidirectionalClass(): string
@@ -275,6 +255,13 @@ final class Character
     private function detectBlockCode(): int
     {
         return IntlChar::getBlockCode($this->glyph);
+    }
+
+    private function detectBytes(): self
+    {
+        $this->bytes = \mb_strlen($this->glyph, $this->encoding);
+
+        return $this;
     }
 
     private function detectCategory(): string
@@ -291,16 +278,19 @@ final class Character
     {
         $isAscii = $this->isAscii();
         $isUtf8 = $this->isUtf8();
-        // $isUtf16 = $this->isUtf16();
+        $isUtf16 = $this->isUtf16();
         // $isUtf32 = $this->isUtf32();
 
-        if (!$isAscii && !$isUtf8) {
+        if (!$isAscii && !$isUtf8 && !$isUtf16) {
             throw new RuntimeException("Unknown encoding for character glyph: `{$this->glyph}`");
         }
+
         if ($isAscii && !$isUtf8) {
             $this->encoding = self::ENCODING_ASCII;
-        } elseif (($isAscii && $isUtf8) || (!$isAscii && $isUtf8)) {
+        } elseif (($isAscii && $isUtf8) || (!$isAscii && $isUtf8 && !$isUtf16)) {
             $this->encoding = self::ENCODING_UTF8;
+        } elseif (($isUtf8 && $isUtf16) || (!$isUtf8 && $isUtf16)) {
+            $this->encoding = self::ENCODING_UTF16;
         }
 
         return $this;
@@ -323,15 +313,14 @@ final class Character
 
     private function detectVersion(): string
     {
-        return implode('.', IntlChar::charAge($this->toUtf32()));
+        return implode('.', IntlChar::charAge($this->glyph));
     }
 
     private function setCharacterData(string $character, bool $detectScript): self
     {
-        // $this->maxLength = $maxLength;
         $this->glyph = Normalizer::normalize($character, Normalizer::FORM_C);
 
-        $this->detectEncoding()->checkLength();
+        $this->detectEncoding()->detectBytes()->checkSize();
 
         $this->bidirectionalClass = $this->detectBidirectionalClass();
         $this->blockCode = $this->detectBlockCode();
@@ -346,18 +335,5 @@ final class Character
         }
 
         return $this;
-    }
-
-    private function toUtf32($encoding = 'UTF-8')
-    {
-        $utf32 = mb_convert_encoding($this->glyph, 'UTF-32', $encoding);
-        $length = mb_strlen($utf32, 'UTF-32');
-        $result = [];
-
-        for ($i = 0; $i < $length; ++$i) {
-            $result[] = hexdec(bin2hex(mb_substr($utf32, $i, 1, 'UTF-32')));
-        }
-
-        return $result[0];
     }
 }
