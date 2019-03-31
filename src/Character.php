@@ -171,7 +171,7 @@ final class Character
         return base_convert(unpack(self::BINARY_FORMAT, $this->glyph)[1], 16, 2);
     }
 
-    public function toCodepoint()
+    public function toCodepoint(): string
     {
         return sprintf(...(self::ENCODING_ASCII === $this->encoding)
             ? [self::CODEPOINT_ASCII, $this->toHex()]
@@ -247,14 +247,18 @@ final class Character
         }, \str_split($bytes, $split)));
     }
 
-    private function detectBidirectionalClass(): string
+    private function detectBidirectionalClass(): self
     {
-        return self::BIDIRECTIONAL_CLASSES[IntlChar::charDirection($this->glyph)];
+        $this->bidirectionalClass = self::BIDIRECTIONAL_CLASSES[IntlChar::charDirection($this->glyph)];
+
+        return $this;
     }
 
-    private function detectBlockCode(): int
+    private function detectBlockCode(): self
     {
-        return IntlChar::getBlockCode($this->glyph);
+        $this->blockCode = IntlChar::getBlockCode($this->glyph);
+
+        return $this;
     }
 
     private function detectBytes(): self
@@ -264,14 +268,18 @@ final class Character
         return $this;
     }
 
-    private function detectCategory(): string
+    private function detectCategory(): self
     {
-        return self::CHARACTER_CATEGORIES[IntlChar::charType($this->glyph)];
+        $this->category = self::CHARACTER_CATEGORIES[IntlChar::charType($this->glyph)];
+
+        return $this;
     }
 
-    private function detectCombiningClass(): int
+    private function detectCombiningClass(): self
     {
-        return IntlChar::getCombiningClass($this->glyph);
+        $this->combiningClass = IntlChar::getCombiningClass($this->glyph);
+
+        return $this;
     }
 
     private function detectEncoding(): self
@@ -296,42 +304,51 @@ final class Character
         return $this;
     }
 
-    private function detectIsMirrored(): bool
+    private function detectIsMirrored(): self
     {
-        return IntlChar::isMirrored($this->glyph);
+        $this->isMirrored = IntlChar::isMirrored($this->glyph);
+
+        return $this;
     }
 
-    private function detectName(): string
+    private function detectName(): self
     {
-        return IntlChar::charName($this->glyph);
+        $this->name = IntlChar::charName($this->glyph);
+
+        return $this;
     }
 
-    private function detectScript(): string
+    private function detectScript(): self
     {
-        return (string) new Script($this);
+        $this->script = (string) new Script($this);
+
+        return $this;
     }
 
-    private function detectVersion(): string
+    private function detectVersion(): self
     {
-        return implode('.', IntlChar::charAge($this->glyph));
+        $this->version = implode('.', IntlChar::charAge($this->glyph));
+
+        return $this;
     }
 
     private function setCharacterData(string $character, bool $detectScript): self
     {
         $this->glyph = Normalizer::normalize($character, Normalizer::FORM_C);
 
-        $this->detectEncoding()->detectBytes()->checkSize();
-
-        $this->bidirectionalClass = $this->detectBidirectionalClass();
-        $this->blockCode = $this->detectBlockCode();
-        $this->category = $this->detectCategory();
-        $this->combiningClass = $this->detectCombiningClass();
-        $this->isMirrored = $this->detectIsMirrored();
-        $this->name = $this->detectName();
-        $this->version = $this->detectVersion();
+        $this->detectEncoding()
+            ->detectBytes()
+            ->checkSize()
+            ->detectBidirectionalClass()
+            ->detectBlockCode()
+            ->detectCategory()
+            ->detectCombiningClass()
+            ->detectIsMirrored()
+            ->detectName()
+            ->detectVersion();
 
         if ($detectScript) { # INF loops :(
-            $this->script = $this->detectScript();
+            $this->detectScript();
         }
 
         return $this;
