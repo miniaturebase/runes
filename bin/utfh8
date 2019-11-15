@@ -10,10 +10,8 @@ $root = rtrim(realpath(__DIR__.'/..'), '/');
 require_once "{$root}/vendor/autoload.php";
 require_once "{$root}/src/helpers.php";
 
-use function \UTFH8\{char, script};
-
-// $script = script('helloಈ');
-// dump($script);
+$script = script('helloಈ');
+dump($script);
 
 $char = char('ß');
 dump($char);
