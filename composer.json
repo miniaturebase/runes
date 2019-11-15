@@ -13,7 +13,7 @@
     },
     "require": {
         "php": "^7.1",
-        "ext-intl": "3.0.0"
+        "ext-intl": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^3.4",
