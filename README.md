@@ -2,6 +2,8 @@
 
 String character analysis library for PHP.
 
+See [compart unicode documentation](https://www.compart.com/en/unicode/) for useful information about unicode characters that PHP does not handle yet.
+
 ```php
 $character = new Character('a');
 
