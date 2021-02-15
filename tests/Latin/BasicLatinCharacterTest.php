@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Ascii;
+namespace UTFH8\Tests\Latin;
 
 test('ASCII control codes', function (...$glyph): void {
     assertAscii(...$glyph);
