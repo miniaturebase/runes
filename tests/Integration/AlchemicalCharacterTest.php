@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Alchemical;
+namespace UTFH8\Tests\Integration;
 
 use UTFH8\Rune;
 

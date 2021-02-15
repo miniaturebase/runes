@@ -2,6 +2,9 @@
 
 declare(strict_types = 1);
 
+namespace UTFH8\Tests\Datasets;
+
+use Generator;
 use UTFH8\Script;
 
 dataset('ascii.control', static function (): Generator {

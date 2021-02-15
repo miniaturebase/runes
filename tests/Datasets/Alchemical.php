@@ -2,6 +2,10 @@
 
 declare(strict_types = 1);
 
+namespace UTFH8\Tests\Datasets;
+
+use Generator;
+
 dataset('alchemical', function (): Generator {
     yield from [
         //         0	1	2	3	4	5	6	7	8	9	A	B	C	D	E	F

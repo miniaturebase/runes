@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+namespace UTFH8\Tests\Integration;
+
 use UTFH8\Script;
 
 // Cyrililc
