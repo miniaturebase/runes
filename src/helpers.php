@@ -5,9 +5,9 @@ declare(strict_types = 1);
 namespace UTFH8;
 
 if (!\function_exists('char')) {
-    function char(string $character): Character
+    function char(string $character): Rune
     {
-        return new Character($character);
+        return new Rune($character);
     }
 }
 

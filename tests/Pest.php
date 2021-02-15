@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 use Pest\Expectations\Expectation;
-use UTFH8\Character;
+use UTFH8\Rune;
 use UTFH8\Tests\Constraints\HasCodepoint;
 use UTFH8\Tests\Constraints\HasDecimal;
 use UTFH8\Tests\Constraints\HasGlyph;
@@ -180,7 +180,7 @@ function assertNotUtf32(string $glyph, ...$rest): void
  */
 function expectGlyph(string $glyph): Expectation
 {
-    return expect(new Character($glyph))
+    return expect(new Rune($glyph))
         ->toHaveGlyph($glyph);
 }
 

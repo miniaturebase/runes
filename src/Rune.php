@@ -14,18 +14,18 @@ use UnexpectedValueException;
  * Analyze a single glyph character to find out everything about it, from it's
  * encoding, direction, script, and even category of the character itself.
  */
-final class Character
+final class Rune
 {
     /**
      * A map of intl character direction constants to their user-friendly
      * counterpart.
-     * 
+     *
      * The values in the `Bidi_Class` field in `UnicodeData.txt` make use of the
      * short, abbreviated property value aliases for `Bidi_Class`. For convenience
      * in reference, _Table 13_ lists all the abbreviated and long value aliases
      * for `Bidi_Class` values, reproduced from `PropertyValueAliases.txt`, along
      * with a brief description of each category.
-     * 
+     *
      * @see http://www.unicode.org/reports/tr44/#Bidi_Class_Values
      * @see https://www.unicode.org/reports/tr44/#PropertyValueAliases.txt
      */
@@ -109,6 +109,11 @@ final class Character
      */
     const CODEPOINT_UNICODE = 'U+%04X';
 
+    /**
+     * Hash map of ASCII control code sequences to their character name abbreviation.
+     *
+     * NOTE: without this map, PHP Intl does not have names for these.
+     */
     const CONTROL_CODE_NAMES = [
         "\u{0000}" => 'NUL',
         "\u{0001}" => 'SOH',
@@ -167,7 +172,7 @@ final class Character
 
     /**
      * The bidirection class of the glyph.
-     * 
+     *
      * @var string
      */
     private $bidirectionalClass;
@@ -318,18 +323,29 @@ final class Character
         return mb_check_encoding($this->glyph, self::ENCODING_UTF8);
     }
 
+    /**
+     * The length of the glyph. Should (always) be 1.
+     *
+     * @return int
+     */
     public function length(): int
     {
         return mb_strlen($this->glyph);
     }
 
+    /**
+     * The amount of bytes that the glyph contains. Ranges from 1 (`ASCII`) to 4
+     * (`UTF-8`, `UTF-16`, `UTF-32`).
+     *
+     * @return int
+     */
     public function size(): int
     {
         return strlen($this->glyph);
     }
 
     /**
-     * Output a hash map of 
+     * Output a hash map of all the glyph's various encodings and representations.
      *
      * @return bool
      */
@@ -625,7 +641,7 @@ final class Character
      * @return self
      */
     private function detectVersion(): self
-    {   
+    {
         $this->version = implode('.', IntlChar::charAge($this->glyph) ?? ['0']);
 
         return $this;

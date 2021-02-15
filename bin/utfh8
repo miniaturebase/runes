@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-use UTFH8\Character;
+use UTFH8\Rune;
 
 ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
@@ -15,7 +15,7 @@ require_once "{$root}/src/helpers.php";
 use function \UTFH8\{char, script, uniord};
 
 // dd(uniord('👍'));
-dd(char('ᚠ')->toArray());
+var_dump(char('ᛒ')->toJson());
 dd(char('ð')->toArray());
 dump(char('ℜ')->toArray());
 dump(char('ß')->toArray());
@@ -32,7 +32,7 @@ dump(char('👍')->toArray());
 // $bin = [];
 
 // foreach (str_split($input) as $glyph) {
-//     $bin[] = (new Character($glyph, false))->toBinary();
+//     $bin[] = (new Rune($glyph, false))->toBinary();
 // }
 
 // dd(implode(' ', $bin));

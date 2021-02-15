@@ -1,6 +1,6 @@
 {
     "name": "jordanbrauer/utfh8",
-    "description": "A lightweight PHP library to analyze unicode characters and scripts.",
+    "description": "A low-level string character analysis library for PHP.",
     "authors": [
         {
             "name": "Jordan Brauer",

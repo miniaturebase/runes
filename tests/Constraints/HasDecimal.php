@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace UTFH8\Tests\Constraints;
 
-
 /**
  * Constraint to match decimal values with.
  */
@@ -22,6 +21,11 @@ final class HasDecimal extends Constraint
         $this->decimal = $decimal;
     }
 
+    public function matches($other): bool
+    {
+        return $other->toDecimal() === $this->decimal;
+    }
+
     protected function failureDescription($other): string
     {
         return sprintf(
@@ -30,10 +34,5 @@ final class HasDecimal extends Constraint
             $other->toDecimal(),
             $this->exporter()->export($this->decimal),
         );
-    }
-
-    public function matches($other): bool
-    {
-        return $other->toDecimal() === $this->decimal;
     }
 }

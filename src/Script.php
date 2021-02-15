@@ -165,6 +165,19 @@ final class Script
     }
 
     /**
+     * Determine if the current set of inspected characters are all valid (of
+     * the same script type).
+     *
+     * @return bool
+     */
+    public function isInspectionValid()
+    {
+        return !mb_strlen($this->subject) || array_reduce($this->inspected, function ($carry, $current) {
+            return false !== $carry && true === $current->isValid;
+        });
+    }
+
+    /**
      * Add the character and script to the list of inspected characters. This
      * method should only be called if the character belonds to the script.
      *
@@ -175,7 +188,7 @@ final class Script
     private function addInspection(string $char, string $script)
     {
         $this->inspected[] = (object) array_merge(
-            (new Character($char, false))->toArray(),
+            (new Rune($char, false))->toArray(),
             ['script' => $script, 'isValid' => $this->isValidScript($script), 'detectedWith' => $this->patternizeScript($script)]
         );
 
@@ -238,19 +251,6 @@ final class Script
     private function isCommonScript(string $script)
     {
         return self::COMMON === $script;
-    }
-
-    /**
-     * Determine if the current set of inspected characters are all valid (of
-     * the same script type).
-     *
-     * @return bool
-     */
-    public function isInspectionValid()
-    {
-        return !mb_strlen($this->subject) || array_reduce($this->inspected, function ($carry, $current) {
-            return false !== $carry && true === $current->isValid;
-        });
     }
 
     /**
