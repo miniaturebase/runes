@@ -4,25 +4,46 @@ declare(strict_types = 1);
 
 namespace UTFH8;
 
-if (!\function_exists('char')) {
-    function char(string $character): Rune
-    {
-        return new Rune($character);
-    }
+/**
+ * Alias for `rune`.
+ *
+ * @param string $glyph
+ * @return Rune
+ */
+function char(string $glyph): Rune
+{
+    return rune($glyph);
 }
 
-if (!\function_exists('script')) {
-    function script(string $subject): Script
-    {
-        return new Script($subject);
-    }
+/**
+ * Create a `Rune` instance from the given glyph.
+ *
+ * @param string $glyph
+ * @return Rune
+ */
+function rune(string $glyph): Rune
+{
+    return new Rune($glyph);
 }
 
-if (!\function_exists('uniord')) {
-    function uniord(string $character)
-    {
-        $character = mb_convert_encoding($character, 'UCS-2LE', 'UTF-8');
+/**
+ * Create a new `Script` instance from the given string.
+ *
+ * @param string $subject
+ * @return Script
+ */
+function script(string $subject): Script
+{
+    return new Script($subject);
+}
 
-        return ord(substr($character, 1, 1)) * 256 + ord(substr($character, 0, 1));
-    }
+/**
+ * @param string $glyph
+ * @return int
+ */
+function uniord(string $glyph): int
+{
+    $glyph = mb_convert_encoding($glyph, 'UCS-2LE', 'UTF-8');
+
+    return ord(substr($glyph, 1, 1)) * 256 + ord(substr($glyph, 0, 1));
 }
