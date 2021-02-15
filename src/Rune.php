@@ -464,7 +464,7 @@ final class Rune
     /**
      * Check that the current glyph's byte size is within allowed memory.
      *
-     * @throws LogicException
+     * @throws UnexpectedValueException
      * @return self
      */
     private function checkSize(): self
