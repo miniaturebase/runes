@@ -29,8 +29,6 @@
     },
     "scripts": {
         "test": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always",
-        "test:ascii": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always --group=ascii",
-        "test:symbols": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always --group=symbols",
         "style": "vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v"
     }
 }

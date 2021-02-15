@@ -9,8 +9,5 @@
     <testsuite name="all">
       <directory suffix="Test.php">tests/</directory>
     </testsuite>
-    <testsuite name="ascii">
-      <directory suffix="Test.php">tests/ascii/</directory>
-    </testsuite>
   </testsuites>
 </phpunit>
