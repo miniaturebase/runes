@@ -7,14 +7,14 @@ namespace UTFH8;
 if (!\function_exists('char')) {
     function char(string $character): Character
     {
-        return new \UTFH8\Character($character);
+        return new Character($character);
     }
 }
 
 if (!\function_exists('script')) {
     function script(string $subject): Script
     {
-        return new \UTFH8\Script($subject);
+        return new Script($subject);
     }
 }
 
