@@ -11,17 +11,25 @@
             "UTFH8\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "UTFH8\\Tests\\": "tests/"
+        }
+    },
     "require": {
-        "php": "^7.1",
-        "ext-intl": "3.0.0"
+        "php": ">=7.1 || >=8.0",
+        "ext-intl": ">=3.0.0"
     },
     "require-dev": {
-        "symfony/var-dumper": "^3.4",
-        "phpunit/phpunit": "^7.5",
-        "friendsofphp/php-cs-fixer": "^2.14"
+        "symfony/var-dumper": "^5.2",
+        "phpunit/phpunit": "^9.3",
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "pestphp/pest": "^1.0"
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --configuration=./phpunit.xml --testsuite=all --color=always",
+        "test": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always",
+        "test:ascii": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always --group=ascii",
+        "test:symbols": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always --group=symbols",
         "style": "vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v"
     }
 }

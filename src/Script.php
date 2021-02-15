@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace UTFH8;
 
+use LogicException;
+
 final class Script
 {
     const ARABIC = "Arabic";
@@ -235,7 +237,7 @@ final class Script
      */
     private function isCommonScript(string $script)
     {
-        return 'Common' === $script;
+        return self::COMMON === $script;
     }
 
     /**
@@ -244,7 +246,7 @@ final class Script
      *
      * @return bool
      */
-    private function isInspectionValid()
+    public function isInspectionValid()
     {
         return !mb_strlen($this->subject) || array_reduce($this->inspected, function ($carry, $current) {
             return false !== $carry && true === $current->isValid;
@@ -282,7 +284,7 @@ final class Script
 
         $pattern = "\\p{{$script}}";
 
-        return ('Common' != $script) ? "\\p{Common}|{$pattern}" : $pattern;
+        return (self::COMMON != $script) ? "\\p{Common}|{$pattern}" : $pattern;
     }
 
     private function previousInspection()

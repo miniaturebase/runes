@@ -8,6 +8,7 @@ use IntlChar;
 use LogicException;
 use Normalizer;
 use RuntimeException;
+use UnexpectedValueException;
 
 final class Character
 {
@@ -79,6 +80,42 @@ final class Character
 
     const CODEPOINT_UNICODE = 'U+%04X';
 
+    const CONTROL_CODE_NAMES = [
+        "\u{0000}" => 'NUL',
+        "\u{0001}" => 'SOH',
+        "\u{0002}" => 'STX',
+        "\u{0003}" => 'ETX',
+        "\u{0004}" => 'EOT',
+        "\u{0005}" => 'ENQ',
+        "\u{0006}" => 'ACK',
+        "\u{0007}" => 'BEL',
+        "\u{0008}" => 'BS',
+        "\u{0009}" => 'HT',
+        "\u{000A}" => 'LF',
+        "\u{000B}" => 'VT',
+        "\u{000C}" => 'FF',
+        "\u{000D}" => 'CR',
+        "\u{000E}" => 'SO',
+        "\u{000F}" => 'SI',
+        "\u{0010}" => 'DLE',
+        "\u{0011}" => 'DC1',
+        "\u{0012}" => 'DC2',
+        "\u{0013}" => 'DC3',
+        "\u{0014}" => 'DC4',
+        "\u{0015}" => 'NAK',
+        "\u{0016}" => 'SYN',
+        "\u{0017}" => 'ETB',
+        "\u{0018}" => 'CAN',
+        "\u{0019}" => 'EM',
+        "\u{001A}" => 'SUB',
+        "\u{001B}" => 'ESC',
+        "\u{001C}" => 'FS',
+        "\u{001D}" => 'GS',
+        "\u{001E}" => 'RS',
+        "\u{001F}" => 'US',
+        "\u{007F}" => 'DEL',
+    ];
+
     const ENCODING_ASCII = 'ASCII';
 
     const ENCODING_UTF16 = 'UTF-16';
@@ -147,6 +184,16 @@ final class Character
     public function isUtf8(): bool
     {
         return mb_check_encoding($this->glyph, self::ENCODING_UTF8);
+    }
+
+    public function length(): int
+    {
+        return mb_strlen($this->glyph);
+    }
+
+    public function size(): int
+    {
+        return strlen($this->glyph);
     }
 
     public function toArray(): array
@@ -218,7 +265,7 @@ final class Character
         $maxBytes = (self::ENCODING_UTF16 == $this->encoding) ? 4 : 1;
 
         if ($this->bytes <= 0 || $this->bytes > $maxBytes) {
-            throw new LogicException("Characters must only have a maximum byte size of {$maxBytes}, received {$this->bytes}.");
+            throw new UnexpectedValueException("Characters must only have a maximum byte size of {$maxBytes}, received {$this->bytes}.");
         }
 
         return $this;
@@ -249,7 +296,7 @@ final class Character
 
     private function detectBidirectionalClass(): self
     {
-        $this->bidirectionalClass = self::BIDIRECTIONAL_CLASSES[IntlChar::charDirection($this->glyph)];
+        $this->bidirectionalClass = self::BIDIRECTIONAL_CLASSES[IntlChar::charDirection($this->glyph)] ?? IntlChar::CHAR_DIRECTION_LEFT_TO_RIGHT;
 
         return $this;
     }
@@ -270,7 +317,7 @@ final class Character
 
     private function detectCategory(): self
     {
-        $this->category = self::CHARACTER_CATEGORIES[IntlChar::charType($this->glyph)];
+        $this->category = self::CHARACTER_CATEGORIES[IntlChar::charType($this->glyph)] ?? IntlChar::CHAR_CATEGORY_UNASSIGNED;
 
         return $this;
     }
@@ -315,6 +362,10 @@ final class Character
     {
         $this->name = IntlChar::charName($this->glyph);
 
+        if (empty($this->name) and 'Cc' === $this->category) {
+            $this->name = self::CONTROL_CODE_NAMES[$this->glyph] ?? '';
+        }
+
         return $this;
     }
 
@@ -326,8 +377,8 @@ final class Character
     }
 
     private function detectVersion(): self
-    {
-        $this->version = implode('.', IntlChar::charAge($this->glyph));
+    {   
+        $this->version = implode('.', IntlChar::charAge($this->glyph) ?? ['0']);
 
         return $this;
     }
