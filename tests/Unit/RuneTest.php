@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace UTFH8\Tests\Unit;
 
+use UnexpectedValueException;
 use UTFH8\Rune;
 
 it('only constructs with 1-(multi)-byte character input', function (): void {
