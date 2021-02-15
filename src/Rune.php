@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace UTFH8;
 
 use IntlChar;
-use LogicException;
 use Normalizer;
 use RuntimeException;
 use UnexpectedValueException;
