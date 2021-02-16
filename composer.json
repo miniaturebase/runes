@@ -1,11 +1,21 @@
 {
     "name": "jordanbrauer/runes",
     "description": "A low-level string character analysis library for PHP.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jordan Brauer",
             "email": "18744334+jordanbrauer@users.noreply.github.com"
         }
+    ],
+    "keywords": [
+        "string",
+        "security",
+        "ASCII",
+        "utf-8",
+        "utf-16",
+        "utf-32",
+        "analysis"
     ],
     "autoload": {
         "psr-4": {
