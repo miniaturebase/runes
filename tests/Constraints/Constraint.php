@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Constraints;
+namespace Rune\Test\Constraints;
 
 use PHPUnit\Framework\Constraint\Constraint as PHPUnitConstraint;
 

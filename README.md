@@ -1,4 +1,10 @@
-# utfh8
+<p align="center">
+    <br />
+    <img src="./logo.png" height="200" alt="PHP Runes" />
+    <br />
+</p>
+
+# Runes
 
 A low-level string character analysis library for PHP.
 
@@ -28,7 +34,7 @@ There are not many requirements for this library. All of them are host machine r
 Use composer and your autoloader.
 
 ```bash
-composer require jordanbrauer/utfh8
+composer require jordanbrauer/runes
 ```
 
 **For Contributors:**
@@ -36,8 +42,8 @@ composer require jordanbrauer/utfh8
 Clone the repository and install the development tools to begin running tests for your features & bug fixes.
 
 ```bash
-git clone https://github.com/jordanbrauer/utfh8.git \
-  && cd ./utfh8 \
+git clone https://github.com/jordanbrauer/runes.git \
+  && cd ./runes \
   && composer install;
 ```
 
@@ -46,7 +52,7 @@ git clone https://github.com/jordanbrauer/utfh8.git \
 Using the library is super simple. For a quick example, let's analyze the ancient, _yet [strangely familiar](https://en.wikipedia.org/wiki/Bluetooth#Logo)_, `ᛒ` from the [Elder Futhark](https://en.wikipedia.org/wiki/Elder_Futhark) writing system!
 
 ```php
-use UTFH8\Rune;
+use Rune\Rune;
 
 $rune = new Rune('ᛒ');
 
@@ -84,4 +90,6 @@ Would output the following data about the glyph.
 
 ### Project Name
 
-The name of this project is a tongue-in-cheek word-play on the UTF-8 encoding algorithm and the (very strong) English word, _"hate"_, by using the number eight in place of the letters _"a-t-e"_, insinutating that at some point in every developer's career, they will say – _"I hate unicode"_.
+Originally, the name of this project was UTFH8; a tongue-in-cheek word-play on the UTF-8 encoding algorithm and the (very strong) English word, _"hate"_, by using the number eight in place of the letters _"a-t-e"_, insinutating that at some point in every developer's career, they will say – _"I hate unicode"_.
+
+Now, the project has been renamed to _Runes_, inspired by [Go's rune type](https://blog.golang.org/strings), and the Elder Futhark – something less harsh & sinister sounding.

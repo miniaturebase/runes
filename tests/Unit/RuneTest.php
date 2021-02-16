@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Unit;
+namespace Rune\Test\Unit;
 
 use UnexpectedValueException;
-use UTFH8\Rune;
+use Rune\Rune;
 
 it('only constructs with 1-(multi)-byte character input', function (): void {
     new Rune('asdf');

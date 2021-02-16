@@ -1,5 +1,5 @@
 {
-    "name": "jordanbrauer/utfh8",
+    "name": "jordanbrauer/runes",
     "description": "A low-level string character analysis library for PHP.",
     "authors": [
         {
@@ -9,12 +9,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "UTFH8\\": "src/"
+            "Rune\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "UTFH8\\Tests\\": "tests/"
+            "Rune\\Test\\": "tests/"
         }
     },
     "require": {

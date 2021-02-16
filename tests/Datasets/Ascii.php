@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Datasets;
+namespace Rune\Test\Datasets;
 
 use Generator;
-use UTFH8\Script;
+use Rune\Script;
 
 dataset('ascii.control', static function (): Generator {
     yield from [

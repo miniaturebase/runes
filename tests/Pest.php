@@ -3,16 +3,16 @@
 declare(strict_types = 1);
 
 use Pest\Expectations\Expectation;
-use UTFH8\Rune;
-use UTFH8\Tests\Constraints\HasCodepoint;
-use UTFH8\Tests\Constraints\HasDecimal;
-use UTFH8\Tests\Constraints\HasGlyph;
-use UTFH8\Tests\Constraints\HasName;
-use UTFH8\Tests\Constraints\IsAscii;
-use UTFH8\Tests\Constraints\IsUtf16;
-use UTFH8\Tests\Constraints\IsUtf32;
-use UTFH8\Tests\Constraints\IsUtf8;
-use UTFH8\Tests\Constraints\WithinScript;
+use Rune\Rune;
+use Rune\Test\Constraints\HasCodepoint;
+use Rune\Test\Constraints\HasDecimal;
+use Rune\Test\Constraints\HasGlyph;
+use Rune\Test\Constraints\HasName;
+use Rune\Test\Constraints\IsAscii;
+use Rune\Test\Constraints\IsUtf16;
+use Rune\Test\Constraints\IsUtf32;
+use Rune\Test\Constraints\IsUtf8;
+use Rune\Test\Constraints\WithinScript;
 
 /*
 |--------------------------------------------------------------------------

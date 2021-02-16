@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Integration;
+namespace Rune\Test\Integration;
 
 test('runic letter and symbols', function (...$glyph): void {
     assertNotAscii(...$glyph);

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Integration;
+namespace Rune\Test\Integration;
 
 test('emojis', function (...$glyph): void {
     assertNotAscii(...$glyph);

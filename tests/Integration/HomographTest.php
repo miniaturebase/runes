@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Integration;
+namespace Rune\Test\Integration;
 
-use UTFH8\Script;
+use Rune\Script;
 
 // Cyrililc
 // а, с, е, о, р, х, у

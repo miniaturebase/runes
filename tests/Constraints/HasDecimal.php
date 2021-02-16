@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Constraints;
+namespace Rune\Test\Constraints;
 
 /**
  * Constraint to match decimal values with.

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Datasets;
+namespace Rune\Test\Datasets;
 
 use Generator;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8;
+namespace Rune;
 
 use IntlChar;
 use Normalizer;

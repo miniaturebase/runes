@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace UTFH8\Tests\Integration;
+namespace Rune\Test\Integration;
 
-use UTFH8\Rune;
+use Rune\Rune;
 
 it('can anaylyze alchemical symbols', function (string $glyph, string $codepoint): void {
     expect(new Rune($glyph))
