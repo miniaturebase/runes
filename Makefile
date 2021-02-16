@@ -12,6 +12,9 @@ autoloader: ## Dump the Composer autoloader
 test: ## Run the tests
 	@composer test
 
+stan: vendor ## Run all code analysis
+	@php -f ./vendor/bin/phpinsights analyse --config-path=phpinsights.php --no-interaction
+
 style: vendor ## Format the application code and configuration
 	@composer style
 
