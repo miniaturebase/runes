@@ -1,0 +1,27 @@
+{
+    "files.encoding": "utf8",
+    "files.eol": "\n", // LF
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "files.associations": {
+        ".php_cs*": "php",
+    },
+
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.formatOnPaste": true,
+
+    "[php]": {
+        "editor.tabSize": 4,
+    },
+    "[json]": {
+        "editor.tabSize": 4,
+    },
+    "[yaml]": {
+        "editor.tabSize": 2,
+    },
+    "[xml]": {
+        "editor.tabSize": 4,
+    },
+}
