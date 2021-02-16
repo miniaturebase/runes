@@ -43,11 +43,11 @@ jobs:
       with:
         name: test-dist
     - name: Unpackage Artifacts
-      run: tar -xvf vendor.tar 
+      run: tar -xvf vendor.tar
     - name: Validate
       run: |
         composer validate
-# composer normalize --dry-run
+        composer normalize --dry-run --indent-size=4 --indent-style=space --no-update-lock --no-check-lock
     - name: Lint (Codestyle)
       run: composer style -- --dry-run
 # - name: Static Analysis
@@ -64,6 +64,6 @@ jobs:
       with:
         name: test-dist
     - name: Unpackage Artifacts
-      run: tar -xvf vendor.tar 
+      run: tar -xvf vendor.tar
     - name: Test
       run: composer test

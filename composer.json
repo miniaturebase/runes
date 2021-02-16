@@ -1,13 +1,6 @@
 {
     "name": "jordanbrauer/runes",
     "description": "A low-level string character analysis library for PHP.",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jordan Brauer",
-            "email": "18744334+jordanbrauer@users.noreply.github.com"
-        }
-    ],
     "keywords": [
         "string",
         "security",
@@ -17,6 +10,24 @@
         "utf-32",
         "analysis"
     ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jordan Brauer",
+            "email": "18744334+jordanbrauer@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1 || >=8.0",
+        "ext-intl": "*"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.13",
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "pestphp/pest": "^1.0",
+        "phpunit/phpunit": "^9.3",
+        "symfony/var-dumper": "^5.2"
+    },
     "autoload": {
         "psr-4": {
             "Rune\\": "src/"
@@ -27,18 +38,8 @@
             "Rune\\Test\\": "tests/"
         }
     },
-    "require": {
-        "php": ">=7.1 || >=8.0",
-        "ext-intl": "*"
-    },
-    "require-dev": {
-        "symfony/var-dumper": "^5.2",
-        "phpunit/phpunit": "^9.3",
-        "friendsofphp/php-cs-fixer": "^2.18",
-        "pestphp/pest": "^1.0"
-    },
     "scripts": {
-        "test": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always",
-        "style": "vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v"
+        "style": "vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v",
+        "test": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always"
     }
 }

@@ -9,8 +9,6 @@ $finder = PhpCsFixer\Finder::create()
       'bin',
       'docs',
       'vendor',
-      'node_modules',
-      'bower_components',
     ])
     ->in([
       "{$root}/src",
