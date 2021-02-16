@@ -1,7 +1,7 @@
 <p align="center">
-    <br />
-    <img src="./logo.png" height="200" alt="PHP Runes" />
-    <br />
+  <br />
+  <img src="./logo.png" height="200" alt="PHP Runes" />
+  <br />
 </p>
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/jordanbrauer/runes?color=257ec2&label=stable&style=flat-square)](https://packagist.org/packages/jordanbrauer/runes)
@@ -10,12 +10,12 @@
 [![composer.lock available](https://poser.pugx.org/jordanbrauer/runes/composerlock?format=flat-square)](https://packagist.org/packages/jordanbrauer/runes)
 [![license](https://img.shields.io/github/license/jordanbrauer/runes.svg?style=flat-square)](https://github.com/jordanbrauer/runes/blob/master/LICENSE)
 
-<!-- [![CI Workflow](https://img.shields.io/github/workflow/status/jordanbrauer/runes/CI?style=flat-square&label=tests)](https://github.com/jordanbrauer/runes/actions?query=workflow%3ACI) -->
+[![CI Workflow](https://img.shields.io/github/workflow/status/jordanbrauer/runes/CI?style=flat-square&label=tests)](https://github.com/jordanbrauer/runes/actions?query=workflow%3ACI)
+[![Maintenance](https://img.shields.io/maintenance/yes/2021.svg?style=flat-square)](https://github.com/jordanbrauer/runes)
+[![Packagist](https://img.shields.io/packagist/dt/jordanbrauer/runes.svg?style=flat-square)](https://packagist.org/packages/jordanbrauer/runes)
 <!-- [![Code Maintainability](https://img.shields.io/codeclimate/maintainability/jordanbrauer/runes.svg?style=flat-square)](https://codeclimate.com/github/jordanbrauer/runes) -->
 <!-- [![Code Coverage](https://img.shields.io/codeclimate/coverage/jordanbrauer/runes.svg?style=flat-square)](https://codeclimate.com/github/jordanbrauer/runes) -->
 <!-- [![Technical Debt](https://img.shields.io/codeclimate/tech-debt/jordanbrauer/runes.svg?style=flat-square)](https://codeclimate.com/github/jordanbrauer/runes/issues) -->
-[![Maintenance](https://img.shields.io/maintenance/yes/2021.svg?style=flat-square)](https://github.com/jordanbrauer/runes)
-[![Packagist](https://img.shields.io/packagist/dt/jordanbrauer/runes.svg?style=flat-square)](https://packagist.org/packages/jordanbrauer/runes)
 
 # Runes
 
