@@ -13,6 +13,7 @@ test: ## Run the tests
 	@composer test
 
 style: vendor ## Format the application code and configuration
+	@composer normalize --indent-size=4 --indent-style=space
 	@composer style
 
 vendor: composer.json composer.lock ## Install Composer vendor dependencies
