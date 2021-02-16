@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Rune\Test\Unit;
 
-use UnexpectedValueException;
 use Rune\Rune;
+use UnexpectedValueException;
 
 it('only constructs with 1-(multi)-byte character input', function (): void {
     new Rune('asdf');
