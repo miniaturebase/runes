@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Rune;
+namespace Minibase\Rune;
 
 use LogicException;
 

@@ -2,9 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Rune\Test\Integration;
-
-use Rune\Script;
+use Minibase\Rune\Script;
 
 // Cyrililc
 // а, с, е, о, р, х, у

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Rune\Test\Constraints;
+namespace Minibase\Rune\Test\Constraints;
 
 use PHPUnit\Framework\Constraint\Constraint as PHPUnitConstraint;
 

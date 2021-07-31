@@ -10,16 +10,16 @@ autoloader: ## Dump the Composer autoloader
 	@composer dumpautoload
 
 test: ## Run the tests
-	@composer test
+	@vendor/bin/pest
 
 style: vendor ## Format the application code and configuration
 	@composer normalize --indent-size=4 --indent-style=space
-	@composer style
+	# @composer style
 
 lint: vendor ## Lint the codebase for formatting issues
 	@composer validate
 	@composer normalize --dry-run --indent-size=4 --indent-style=space --no-update-lock --no-check-lock
-	@composer style -- --dry-run
+	# @composer style -- --dry-run
 
 vendor: composer.json composer.lock ## Install Composer vendor dependencies
 	@composer install --optimize-autoloader --no-suggest --no-interaction

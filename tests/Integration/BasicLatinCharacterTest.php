@@ -2,8 +2,6 @@
 
 declare(strict_types = 1);
 
-namespace Rune\Test\Integration;
-
 test('ASCII control codes', function (...$glyph): void {
     assertAscii(...$glyph);
 })->with(

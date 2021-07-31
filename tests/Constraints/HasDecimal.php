@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Rune\Test\Constraints;
+namespace Minibase\Rune\Test\Constraints;
 
 /**
  * Constraint to match decimal values with.

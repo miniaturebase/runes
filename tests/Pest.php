@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-use Pest\Expectations\Expectation;
-use Rune\Rune;
-use Rune\Test\Constraints\HasCodepoint;
-use Rune\Test\Constraints\HasDecimal;
-use Rune\Test\Constraints\HasGlyph;
-use Rune\Test\Constraints\HasName;
-use Rune\Test\Constraints\IsAscii;
-use Rune\Test\Constraints\IsUtf16;
-use Rune\Test\Constraints\IsUtf32;
-use Rune\Test\Constraints\IsUtf8;
-use Rune\Test\Constraints\WithinScript;
+use Pest\Expectation;
+use Minibase\Rune\Rune;
+use Minibase\Rune\Test\Constraints\HasCodepoint;
+use Minibase\Rune\Test\Constraints\HasDecimal;
+use Minibase\Rune\Test\Constraints\HasGlyph;
+use Minibase\Rune\Test\Constraints\HasName;
+use Minibase\Rune\Test\Constraints\IsAscii;
+use Minibase\Rune\Test\Constraints\IsUtf16;
+use Minibase\Rune\Test\Constraints\IsUtf32;
+use Minibase\Rune\Test\Constraints\IsUtf8;
+use Minibase\Rune\Test\Constraints\WithinScript;
 
 /*
 |--------------------------------------------------------------------------

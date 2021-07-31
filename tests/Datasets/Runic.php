@@ -2,10 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Rune\Test\Datasets;
-
-use Generator;
-use Rune\Script;
+use Minibase\Rune\Script;
 
 dataset('runic.letters', function (): Generator {
     yield from [

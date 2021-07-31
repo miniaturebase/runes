@@ -2,7 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Rune;
+namespace Minibase;
+
+use Minibase\Rune\Rune;
+use Minibase\Rune\Script;
 
 /**
  * Alias for `rune`.

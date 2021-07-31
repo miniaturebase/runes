@@ -1,5 +1,5 @@
 {
-    "name": "jordanbrauer/runes",
+    "name": "miniaturebase/runes",
     "description": "A low-level string character analysis library for PHP.",
     "keywords": [
         "string",
@@ -30,16 +30,15 @@
     },
     "autoload": {
         "psr-4": {
-            "Rune\\": "src/"
+            "Minibase\\Rune\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rune\\Test\\": "tests/"
-        }
-    },
-    "scripts": {
-        "style": "vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v",
-        "test": "vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always"
+            "Minibase\\Rune\\Test\\": "tests/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     }
 }

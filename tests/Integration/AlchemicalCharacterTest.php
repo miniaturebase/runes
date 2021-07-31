@@ -2,9 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Rune\Test\Integration;
-
-use Rune\Rune;
+use Minibase\Rune\Rune;
 
 it('can anaylyze alchemical symbols', function (string $glyph, string $codepoint): void {
     expect(new Rune($glyph))
