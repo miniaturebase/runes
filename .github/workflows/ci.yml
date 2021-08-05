@@ -49,7 +49,7 @@ jobs:
         composer validate
         composer normalize --dry-run --indent-size=4 --indent-style=space --no-update-lock --no-check-lock
     - name: Lint (Codestyle)
-      run: composer vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v --dry-run
+      run: vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v --dry-run
 # - name: Static Analysis
 # run: composer analyze -- --error-format=github
 
@@ -66,4 +66,4 @@ jobs:
     - name: Unpackage Artifacts
       run: tar -xvf vendor.tar
     - name: Test
-      run: composer vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always
+      run: vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always
