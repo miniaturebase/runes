@@ -10,16 +10,16 @@ autoloader: ## Dump the Composer autoloader
 	@composer dumpautoload
 
 test: ## Run the tests
-	@vendor/bin/pest
+	@vendor/bin/pest --configuration=./phpunit.xml --testsuite=all --color=always
 
 style: vendor ## Format the application code and configuration
 	@composer normalize --indent-size=4 --indent-style=space
-	# @composer style
+	@vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v
 
 lint: vendor ## Lint the codebase for formatting issues
 	@composer validate
 	@composer normalize --dry-run --indent-size=4 --indent-style=space --no-update-lock --no-check-lock
-	# @composer style -- --dry-run
+	@vendor/bin/php-cs-fixer fix --config=.php_cs --show-progress=dots --ansi -v --dry-run
 
 vendor: composer.json composer.lock ## Install Composer vendor dependencies
 	@composer install --optimize-autoloader --no-suggest --no-interaction
